@@ -1,0 +1,22 @@
+http:
+  port: 5000
+apiEndpoints:
+  users:
+    host: "*"
+    paths: "/api/users/*"
+serviceEndpoints:
+  urlUsers:
+    url: "http://localhost:5001"
+policies:
+  - proxy
+  - response-transformer
+pipelines:
+  users:
+    apiEndpoints:
+      - users
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: urlUsers
+              changeOrigin: true
+ 
